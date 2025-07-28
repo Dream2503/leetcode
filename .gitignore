@@ -1,0 +1,7 @@
+/.idea
+/.clang-format
+/.clang-tidy
+/0-main
+/0-main.cpp
+/0-test.cpp
+/all_in_one.hpp
