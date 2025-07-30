@@ -115,7 +115,7 @@ int main() {
     Solution sol;
     auto start = std::chrono::high_resolution_clock::now();
 
-sol.relativeSortArray({28,6,22,8,44,17}, {22,28,8,6});
+    sol.relativeSortArray({28, 6, 22, 8, 44, 17}, {22, 28, 8, 6});
 
 
     std::chrono::duration<double> time = std::chrono::high_resolution_clock::now() - start;
