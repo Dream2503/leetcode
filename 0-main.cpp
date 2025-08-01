@@ -3,6 +3,7 @@
 #include <chrono>
 #include <cmath> // Common mathematical functions
 #include <deque> // std::deque container
+#include <execution>
 #include <iomanip> // Manipulators for input and output formatting
 #include <iostream> // Standard input and output streams
 #include <list> // std::list container
