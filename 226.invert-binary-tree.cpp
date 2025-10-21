@@ -17,18 +17,15 @@
  * };
  */
 class Solution {
-    void swap(TreeNode* root) {
-        if (root) {
-            std::swap(root->left, root->right);
-            swap(root->left);
-            swap(root->right);
-        }
-    }
-
 public:
     TreeNode* invertTree(TreeNode* root) {
-        swap(root);
-        return root;
+        if (root) {
+            std::swap(root->left, root->right);
+            invertTree(root->left);
+            invertTree(root->right);
+            return root;
+        }
+        return nullptr;
     }
 };
 // @lc code=end

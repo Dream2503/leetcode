@@ -24,7 +24,6 @@ public:
     }
 };
 */
-
 class Solution {
     void resolve(const Node* root, const int current, int& max) {
         if (root) {

@@ -17,14 +17,12 @@
  * };
  */
 class Solution {
-    int count(const TreeNode* node) {
-        if (node) {
-            return 1 + count(node->left) + count(node->right);
+public:
+    int countNodes(const TreeNode* root) {
+        if (root) {
+            return 1 + countNodes(root->left) + countNodes(root->right);
         }
         return 0;
     }
-
-public:
-    int countNodes(const TreeNode* root) { return count(root); }
 };
 // @lc code=end

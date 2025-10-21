@@ -17,17 +17,13 @@
  * };
  */
 class Solution {
-    int sum(const TreeNode* node) {
-        if (node) {
-            if (node->left && !node->left->left && !node->left->right) {
-                return node->left->val + sum(node->right);
-            }
-            return sum(node->left) + sum(node->right);
+public:
+    int sumOfLeftLeaves(const TreeNode* root) {
+        if (root) {
+            return (root->left && !root->left->left && !root->left->right ? root->left->val : sumOfLeftLeaves(root->left)) +
+                sumOfLeftLeaves(root->right);
         }
         return 0;
     }
-
-public:
-    int sumOfLeftLeaves(TreeNode* root) { return sum(root); }
 };
 // @lc code=end

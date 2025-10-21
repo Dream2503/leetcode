@@ -17,29 +17,27 @@
  * };
  */
 class Solution {
-    bool check(const TreeNode* node, const TreeNode* sub_node) {
+    bool resolve(const TreeNode* node, const TreeNode* sub_node) {
         if (!node && !sub_node) {
             return true;
         }
         if (node && sub_node && node->val == sub_node->val) {
-            return check(node->left, sub_node->left) && check(node->right, sub_node->right);
-        }
-        return false;
-    }
-
-    bool resolve(const TreeNode* node, const TreeNode* sub_root) {
-        if (node) {
-            bool found = false;
-
-            if (node->val == sub_root->val) {
-                found = check(node, sub_root);
-            }
-            return found || resolve(node->left, sub_root) || resolve(node->right, sub_root);
+            return resolve(node->left, sub_node->left) && resolve(node->right, sub_node->right);
         }
         return false;
     }
 
 public:
-    bool isSubtree(const TreeNode* root, const TreeNode* subRoot) { return resolve(root, subRoot); }
+    bool isSubtree(const TreeNode* root, const TreeNode* subRoot) {
+        if (root) {
+            bool found = false;
+
+            if (root->val == subRoot->val) {
+                found = resolve(root, subRoot);
+            }
+            return found || isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
+        }
+        return false;
+    }
 };
 // @lc code=end
