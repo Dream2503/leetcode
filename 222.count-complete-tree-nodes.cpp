@@ -17,30 +17,15 @@
  * };
  */
 class Solution {
-    int count(TreeNode* node) {
-        if (!node->left && !node->right) {
-            return node->val;
+    int count(const TreeNode* node) {
+        if (node) {
+            return 1 + count(node->left) + count(node->right);
         }
-        if (!node->right) {
-            return node->left->val;
-        }
-        int res = count(node->right);
-
-        if (!res) {
-            return count(node->left);
-        }
-        return res;
+        return 0;
     }
 
 public:
-    int countNodes(TreeNode* root) {
-        if (!root) {
-            return 0;
-        }
-        if (!root->right && !root->left) {
-            return 1;
-        }
-        return count(root);
-    }
+    int countNodes(const TreeNode* root) { return count(root); }
 };
+
 // @lc code=end

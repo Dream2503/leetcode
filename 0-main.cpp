@@ -1,34 +1,11 @@
-#include <algorithm> // Standard algorithms (e.g., sort, find)
-#include <array> // std::array container
-#include <chrono>
-#include <cmath> // Common mathematical functions
-#include <deque> // std::deque container
-#include <execution>
-#include <iomanip> // Manipulators for input and output formatting
-#include <iostream> // Standard input and output streams
-#include <list> // std::list container
-#include <map> // std::map and std::multimap containers
-#include <numeric> // Numeric operations (e.g., std::accumulate)
-#include <numeric>
-#include <queue>
-#include <random> // Random number generation facilities
-#include <set> // std::set and std::multiset containers
-#include <stack>
-#include <string> // std::string class and related functions
-#include <tuple> // std::tuple and related functions
-#include <unordered_map> // std::unordered_map and std::unordered_multimap containers
-#include <unordered_set> // std::unordered_set and std::unordered_multiset containers
-#include <utility> // std::pair and std::make_pair
-#include <vector> // std::vector container
+#include <bits/stdc++.h>
 
 struct ListNode {
     int val;
     ListNode* next;
 
     ListNode() : val(0), next(nullptr) {}
-
     ListNode(int x) : val(x), next(nullptr) {}
-
     ListNode(int x, ListNode* next) : val(x), next(next) {}
 };
 
@@ -38,9 +15,7 @@ struct TreeNode {
     TreeNode* right;
 
     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-
     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
 
@@ -57,26 +32,34 @@ public:
     }
 };
 
-//
-// ListNode* create(vector<int> vec) {
-//     ListNode *head = new ListNode(vec[0]), *current = head;
-//
-//     for (int num : vec) {
-//         current->next = new ListNode(num);
-//         current = current->next;
-//     }
-//     return head->next;
-// }
-//
-// void print(ListNode* head) {
-//     cout << '[';
-//
-//     while (head->next) {
-//         cout << head->val << ", ";
-//         head = head->next;
-//     }
-//     cout << head->val << ']';
-// }
+
+ListNode* create(const std::vector<int>& vec) {
+    [[unlikely]] ListNode *head = new ListNode(vec[0]), *current = head;
+
+    for (const int num : vec) {
+        current->next = new ListNode(num);
+        current = current->next;
+    }
+    return head->next;
+}
+
+void free(ListNode* head) {
+    while (head) {
+        ListNode* next = head->next;
+        delete head;
+        head = next;
+    }
+}
+
+void print(ListNode* head) {
+    std::cout << '[';
+
+    while (head->next) {
+        std::cout << head->val << ", ";
+        head = head->next;
+    }
+    std::cout << head->val << ']';
+}
 
 class Solution {
 public:
@@ -124,3 +107,5 @@ int main() {
 
     return 0;
 }
+
+#include "all_in_one.hpp"
