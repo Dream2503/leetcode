@@ -23,7 +23,6 @@ class Solution {
                 paths.emplace_back(current + std::to_string(node->val));
             } else {
                 path(node->left, current + std::to_string(node->val) + "->", paths);
-
                 path(node->right, current + std::to_string(node->val) + "->", paths);
             }
         }
