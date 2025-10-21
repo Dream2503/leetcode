@@ -19,17 +19,22 @@ struct TreeNode {
     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
 
+// class Node {
+// public:
+//     int val;
+//     Node *next, random;
+//
+//     Node(const int val) : val(val), next(nullptr), random(nullptr) {}
+// };
+
 class Node {
 public:
     int val;
-    Node* next;
-    Node* random;
+    std::vector<Node*> children;
 
-    Node(int _val) {
-        val = _val;
-        next = NULL;
-        random = NULL;
-    }
+    Node() {}
+    Node(const int val) : val(val) {}
+    Node(const int val, const std::vector<Node*>& children) : val(val), children(children) {}
 };
 
 
