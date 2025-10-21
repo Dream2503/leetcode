@@ -27,5 +27,4 @@ class Solution {
 public:
     int countNodes(const TreeNode* root) { return count(root); }
 };
-
 // @lc code=end
