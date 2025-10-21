@@ -4,19 +4,18 @@ struct ListNode {
     int val;
     ListNode* next;
 
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode* next) : val(x), next(next) {}
+    ListNode() : ListNode(0, nullptr) {}
+    ListNode(const int val) : ListNode(val, nullptr) {}
+    ListNode(const int val, ListNode* next) : val(val), next(next) {}
 };
 
 struct TreeNode {
     int val;
-    TreeNode* left;
-    TreeNode* right;
+    TreeNode *left, *right;
 
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
+    TreeNode() : TreeNode(0, nullptr, nullptr) {}
+    TreeNode(const int val) : TreeNode(val, nullptr, nullptr) {}
+    TreeNode(const int val, TreeNode* left, TreeNode* right) : val(val), left(left), right(right) {}
 };
 
 // class Node {
@@ -32,7 +31,7 @@ public:
     int val;
     std::vector<Node*> children;
 
-    Node() {}
+    Node() = default;
     Node(const int val) : val(val) {}
     Node(const int val, const std::vector<Node*>& children) : val(val), children(children) {}
 };
@@ -48,15 +47,15 @@ ListNode* create(const std::vector<int>& vec) {
     return head->next;
 }
 
-void free(ListNode* head) {
+void free(const ListNode* head) {
     while (head) {
-        ListNode* next = head->next;
+        const ListNode* next = head->next;
         delete head;
         head = next;
     }
 }
 
-void print(ListNode* head) {
+void print(const ListNode* head) {
     std::cout << '[';
 
     while (head->next) {
@@ -102,14 +101,12 @@ public:
 
 int main() {
     Solution sol;
-    auto start = std::chrono::high_resolution_clock::now();
+    const std::chrono::time_point<std::chrono::system_clock> start = std::chrono::high_resolution_clock::now();
 
     sol.relativeSortArray({28, 6, 22, 8, 44, 17}, {22, 28, 8, 6});
 
-
-    std::chrono::duration<double> time = std::chrono::high_resolution_clock::now() - start;
+    const std::chrono::duration<double> time = std::chrono::high_resolution_clock::now() - start;
     std::cout << "Total time taken: " << time.count();
-
     return 0;
 }
 
