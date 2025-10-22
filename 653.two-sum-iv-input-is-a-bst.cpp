@@ -41,9 +41,6 @@ class Solution {
 
 public:
     bool findTarget(const TreeNode* root, const int k) {
-        if (!root) {
-            return false;
-        }
         std::stack<const TreeNode*> in_order, reverse;
         const TreeNode *low = root, *high = root;
 
