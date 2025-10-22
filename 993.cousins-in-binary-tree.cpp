@@ -34,7 +34,7 @@ class Solution {
     }
 
 public:
-    bool isCousins(const TreeNode* root, int x, int y) {
+    bool isCousins(const TreeNode* root, const int x, const int y) {
         const TreeNode *parent_x = nullptr, *parent_y = nullptr;
         int depth_x = -1, depth_y = -1;
         resolve(root, x, y, nullptr, 0, parent_x, parent_y, depth_x, depth_y);
