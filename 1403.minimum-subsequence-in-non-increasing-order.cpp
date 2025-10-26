@@ -8,7 +8,6 @@
 class Solution {
 public:
     std::vector<int> minSubsequence(std::vector<int>& nums) {
-        const int size = nums.size();
         std::ranges::sort(nums, std::ranges::greater());
         int sum = std::reduce(nums.begin(), nums.end(), 0), i = 0;
 
