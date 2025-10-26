@@ -67,35 +67,22 @@ void print(const ListNode* head) {
 
 class Solution {
 public:
-    std::vector<int> relativeSortArray(std::vector<int> arr1, const std::vector<int> arr2) {
-        std::unordered_map<int, int> hash;
-        int i = 0;
-        hash.reserve(arr2.size());
+    std::vector<int> luckyNumbers(const std::vector<std::vector<int>> matrix) {
+        const int col_size = matrix.front().size();
+        std::vector<int> min_cols, res;
+        min_cols.reserve(col_size);
 
-        for (const int element : arr2) {
-            hash.emplace(element, i++);
+        for (int i = 0; i < col_size; i++) {
+            min_cols.push_back(std::ranges::max_element(matrix, {}, [i](const std::vector<int>& col) -> int { return col[i]; })->at(i));
         }
-        std::sort(arr1.begin(), arr1.end(), [&hash](const int a, const int b) {
-            const auto itr_a = hash.find(a), itr_b = hash.find(b);
+        for (const std::vector<int>& row : matrix) {
+            const int idx = std::ranges::min_element(row) - row.begin();
 
-            if (itr_a == hash.end()) {
-                return false;
+            if (row[idx] == min_cols[idx]) {
+                res.push_back(row[idx]);
             }
-            if (itr_b == hash.end()) {
-                return true;
-            }
-            return hash[a] < hash[b];
-        });
-        const int last = arr2.back();
-        i = arr1.size() - 1;
-
-        while (i >= 0 && arr1[i] != last) {
-            i--;
         }
-        if (i < arr1.size() - 1) {
-            std::sort(arr1.begin() + i + 1, arr1.end());
-        }
-        return arr1;
+        return res;
     }
 };
 
@@ -103,7 +90,7 @@ int main() {
     Solution sol;
     const std::chrono::time_point<std::chrono::system_clock> start = std::chrono::high_resolution_clock::now();
 
-    sol.relativeSortArray({28, 6, 22, 8, 44, 17}, {22, 28, 8, 6});
+    sol.luckyNumbers({{3, 7, 8}, {9, 11, 13}, {15, 16, 17}});
 
     const std::chrono::duration<double> time = std::chrono::high_resolution_clock::now() - start;
     std::cout << "Total time taken: " << time.count();

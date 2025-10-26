@@ -3,6 +3,5 @@
 /.clang-tidy
 /0-main
 /0-main.cc
-/0-test.cpp
 /0-update.sh
 /all_in_one.hpp
