@@ -22,7 +22,7 @@ public:
             const auto [sum, i, j] = heap.top();
             heap.pop();
             result.push_back({nums1[i], nums2[j]});
-w
+
             if (j + 1 < size2) {
                 heap.emplace(nums1[i] + nums2[j + 1], i, j + 1);
             }
