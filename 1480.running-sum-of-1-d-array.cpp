@@ -8,11 +8,7 @@
 class Solution {
 public:
     std::vector<int>& runningSum(std::vector<int>& nums) {
-        const int size = nums.size();
-
-        for (int i = 1; i < size; i++) {
-            nums[i] += nums[i - 1];
-        }
+        std::inclusive_scan(nums.begin(), nums.end(), nums.begin());
         return nums;
     }
 };
