@@ -7,7 +7,7 @@
 // @lc code=start
 class Solution {
 public:
-    int findKthPositive(const std::vector<int>& arr, int k) {
+    int findKthPositive(const std::vector<int>& arr, const int k) {
         const int size = arr.size();
         int i = 0, missing = 0, n = 0;
 
