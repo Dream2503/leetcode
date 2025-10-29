@@ -66,31 +66,51 @@ void print(const ListNode* head) {
 }
 
 class Solution {
-public:
-    std::vector<int> luckyNumbers(const std::vector<std::vector<int>> matrix) {
-        const int col_size = matrix.front().size();
-        std::vector<int> min_cols, res;
-        min_cols.reserve(col_size);
+    std::pair<int, int> bfs(const int V, const std::vector<std::vector<int>>& graph, const int start) {
+        int farthest_node = start;
+        std::vector dist(V, -1);
+        std::queue<int> queue;
+        queue.push(start);
+        dist[start] = 0;
 
-        for (int i = 0; i < col_size; i++) {
-            min_cols.push_back(std::ranges::max_element(matrix, {}, [i](const std::vector<int>& col) -> int { return col[i]; })->at(i));
-        }
-        for (const std::vector<int>& row : matrix) {
-            const int idx = std::ranges::min_element(row) - row.begin();
+        while (!queue.empty()) {
+            const int node = queue.front();
+            queue.pop();
 
-            if (row[idx] == min_cols[idx]) {
-                res.push_back(row[idx]);
+            for (int adjacent : graph[node]) {
+                if (dist[adjacent] == -1) {
+                    dist[adjacent] = dist[node] + 1;
+                    queue.push(adjacent);
+
+                    if (dist[adjacent] > dist[farthest_node]) {
+                        farthest_node = adjacent;
+                    }
+                }
             }
         }
-        return res;
+        return {farthest_node, dist[farthest_node]};
+    }
+
+public:
+    int diameter(const int V, const std::vector<std::vector<int>>& edges) {
+        std::vector<std::vector<int>> graph(V);
+
+        for (const std::vector<int>& edge : edges) {
+            graph[edge[0]].push_back(edge[1]);
+            graph[edge[1]].push_back(edge[0]);
+        }
+        auto [node, _] = bfs(V, graph, 0);
+        auto [farthest, diameter] = bfs(V, graph, node);
+        return diameter;
     }
 };
+
 
 int main() {
     Solution sol;
     const std::chrono::time_point<std::chrono::system_clock> start = std::chrono::high_resolution_clock::now();
 
-    sol.luckyNumbers({{3, 7, 8}, {9, 11, 13}, {15, 16, 17}});
+    // sol.luckyNumbers({{3, 7, 8}, {9, 11, 13}, {15, 16, 17}});
 
     const std::chrono::duration<double> time = std::chrono::high_resolution_clock::now() - start;
     std::cout << "Total time taken: " << time.count();
