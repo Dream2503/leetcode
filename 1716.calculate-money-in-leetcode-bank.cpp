@@ -9,7 +9,7 @@ class Solution {
     int sum_natural(const int start, const int end) { return (end - start + 1) * (start + end) / 2; }
 
 public:
-    int totalMoney(int n) {
+    int totalMoney(const int n) {
         const int weeks = n / 7, days = n % 7;
         int res = 0;
 
