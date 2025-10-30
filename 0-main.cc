@@ -66,42 +66,36 @@ void print(const ListNode* head) {
 }
 
 class Solution {
-    std::pair<int, int> bfs(const int V, const std::vector<std::vector<int>>& graph, const int start) {
-        int farthest_node = start;
-        std::vector dist(V, -1);
-        std::queue<int> queue;
-        queue.push(start);
-        dist[start] = 0;
+public:
+    std::vector<int> numberOfAlternatingGroups(std::vector<int> colors, const std::vector<std::vector<int>>& queries) {
+        const int size = colors.size();
+        std::vector<int> res;
 
-        while (!queue.empty()) {
-            const int node = queue.front();
-            queue.pop();
+        for (const std::vector<int>& query : queries) {
+            if (query[0] == 1) {
+                int count = 0;
 
-            for (int adjacent : graph[node]) {
-                if (dist[adjacent] == -1) {
-                    dist[adjacent] = dist[node] + 1;
-                    queue.push(adjacent);
+                for (int i = 0; i < size; i++) {
+                    bool complete = true;
+                    int j = 1;
 
-                    if (dist[adjacent] > dist[farthest_node]) {
-                        farthest_node = adjacent;
+                    for (j = 1; j < query[1]; j++) {
+                        if (colors[(i + j - 1) % size] == colors[(i + j) % size]) {
+                            complete = false;
+                            break;
+                        }
+                    }
+                    if (complete) {
+                        count++;
+                    } else {
+                        i += j - 1;
                     }
                 }
+            } else {
+                colors[query[1]] = query[2];
             }
         }
-        return {farthest_node, dist[farthest_node]};
-    }
-
-public:
-    int diameter(const int V, const std::vector<std::vector<int>>& edges) {
-        std::vector<std::vector<int>> graph(V);
-
-        for (const std::vector<int>& edge : edges) {
-            graph[edge[0]].push_back(edge[1]);
-            graph[edge[1]].push_back(edge[0]);
-        }
-        auto [node, _] = bfs(V, graph, 0);
-        auto [farthest, diameter] = bfs(V, graph, node);
-        return diameter;
+        return res;
     }
 };
 
@@ -110,7 +104,7 @@ int main() {
     Solution sol;
     const std::chrono::time_point<std::chrono::system_clock> start = std::chrono::high_resolution_clock::now();
 
-    // sol.luckyNumbers({{3, 7, 8}, {9, 11, 13}, {15, 16, 17}});
+    sol.numberOfAlternatingGroups({0, 1, 1, 0, 0}, {{2, 1, 0}, {1, 4}});
 
     const std::chrono::duration<double> time = std::chrono::high_resolution_clock::now() - start;
     std::cout << "Total time taken: " << time.count();
