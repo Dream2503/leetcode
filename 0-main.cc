@@ -66,36 +66,47 @@ void print(const ListNode* head) {
 }
 
 class Solution {
-public:
-    std::vector<int> numberOfAlternatingGroups(std::vector<int> colors, const std::vector<std::vector<int>>& queries) {
-        const int size = colors.size();
-        std::vector<int> res;
+    int bfs(const std::vector<std::vector<int>>& graph, const int source) {
+        static std::vector<int> distances(graph.size());
+        int min = INT32_MAX;
+        std::queue<std::pair<int, int>> queue;
+        std::ranges::fill(distances, -1);
+        queue.emplace(source, 0);
 
-        for (const std::vector<int>& query : queries) {
-            if (query[0] == 1) {
-                int count = 0;
+        while (!queue.empty()) {
+            const auto [node, distance] = queue.front();
+            queue.pop();
 
-                for (int i = 0; i < size; i++) {
-                    bool complete = true;
-                    int j = 1;
-
-                    for (j = 1; j < query[1]; j++) {
-                        if (colors[(i + j - 1) % size] == colors[(i + j) % size]) {
-                            complete = false;
-                            break;
-                        }
-                    }
-                    if (complete) {
-                        count++;
-                    } else {
-                        i += j - 1;
-                    }
+            if (distances[node] != -1) {
+                if (distances[node] - distance != 2) {
+                    return distances[node] + distance + 1;;
+                } else {
+                    continue;
                 }
-            } else {
-                colors[query[1]] = query[2];
+            }
+            distances[node] = distance;
+
+            for (const int neighbour : graph[node]) {
+                queue.emplace(neighbour, distance + 1);
             }
         }
-        return res;
+        return INT32_MAX;
+    }
+
+public:
+    int findShortestCycle(const int n, const std::vector<std::vector<int>>& edges) {
+        std::vector<std::vector<int>> graph(n);
+
+        for (const std::vector<int>& edge : edges) {
+            graph[edge[0]].push_back(edge[1]);
+            graph[edge[1]].push_back(edge[0]);
+        }
+        int min = INT32_MAX;
+
+        for (int i = 0; i < n; i++) {
+            min = std::min(min, bfs(graph, i));
+        }
+        return min == INT32_MAX ? -1 : min;
     }
 };
 
@@ -104,7 +115,7 @@ int main() {
     Solution sol;
     const std::chrono::time_point<std::chrono::system_clock> start = std::chrono::high_resolution_clock::now();
 
-    sol.numberOfAlternatingGroups({0, 1, 1, 0, 0}, {{2, 1, 0}, {1, 4}});
+    sol.findShortestCycle(8, {{1,3},{3,5},{5,7},{7,1},{0,2},{2,4},{4,0}});
 
     const std::chrono::duration<double> time = std::chrono::high_resolution_clock::now() - start;
     std::cout << "Total time taken: " << time.count();
