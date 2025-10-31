@@ -6,14 +6,14 @@
 
 // @lc code=start
 class RandomizedSet {
-    vector<int> set;
-    unordered_map<int, int> hash;
+    std::vector<int> set;
+    std::unordered_map<int, int> hash;
 
 public:
-    RandomizedSet() : set(), hash() {}
+    RandomizedSet() noexcept = default;
 
     bool insert(const int val) noexcept {
-        if (hash.find(val) == hash.end()) {
+        if (!hash.contains(val)) {
             set.push_back(val);
             hash[val] = set.size() - 1;
             return true;
@@ -22,7 +22,7 @@ public:
     }
 
     bool remove(const int val) noexcept {
-        if (hash.find(val) != hash.end()) {
+        if (hash.contains(val)) {
             const int idx = hash[val];
             set[idx] = set.back();
             hash[set.back()] = idx;
@@ -33,7 +33,7 @@ public:
         return false;
     }
 
-    int getRandom() const noexcept { return set[rand() % set.size()]; }
+    int getRandom() const noexcept { return set[std::rand() % set.size()]; }
 };
 
 /**
