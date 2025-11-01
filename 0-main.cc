@@ -79,7 +79,8 @@ class Solution {
 
             if (distances[node] != -1) {
                 if (distances[node] - distance != 2) {
-                    return distances[node] + distance + 1;;
+                    return distances[node] + distance + 1;
+                    ;
                 } else {
                     continue;
                 }
@@ -115,7 +116,7 @@ int main() {
     Solution sol;
     const std::chrono::time_point<std::chrono::system_clock> start = std::chrono::high_resolution_clock::now();
 
-    sol.findShortestCycle(8, {{1,3},{3,5},{5,7},{7,1},{0,2},{2,4},{4,0}});
+    sol.findShortestCycle(8, {{1, 3}, {3, 5}, {5, 7}, {7, 1}, {0, 2}, {2, 4}, {4, 0}});
 
     const std::chrono::duration<double> time = std::chrono::high_resolution_clock::now() - start;
     std::cout << "Total time taken: " << time.count();
