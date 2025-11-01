@@ -12,10 +12,7 @@ class Solution {
         state[source] = VISITING;
 
         for (const int adj : graph[source]) {
-            if (state[adj] == VISITING) {
-                return false;
-            }
-            if (state[adj] == UNVISITED && !dfs(graph, state, adj)) {
+            if (state[adj] == VISITING || state[adj] == UNVISITED && !dfs(graph, state, adj)) {
                 return false;
             }
         }
