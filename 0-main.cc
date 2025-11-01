@@ -66,48 +66,21 @@ void print(const ListNode* head) {
 }
 
 class Solution {
-    int bfs(const std::vector<std::vector<int>>& graph, const int source) {
-        static std::vector<int> distances(graph.size());
-        int min = INT32_MAX;
-        std::queue<std::pair<int, int>> queue;
-        std::ranges::fill(distances, -1);
-        queue.emplace(source, 0);
-
-        while (!queue.empty()) {
-            const auto [node, distance] = queue.front();
-            queue.pop();
-
-            if (distances[node] != -1) {
-                if (distances[node] - distance != 2) {
-                    return distances[node] + distance + 1;
-                    ;
-                } else {
-                    continue;
-                }
-            }
-            distances[node] = distance;
-
-            for (const int neighbour : graph[node]) {
-                queue.emplace(neighbour, distance + 1);
-            }
-        }
-        return INT32_MAX;
-    }
-
 public:
-    int findShortestCycle(const int n, const std::vector<std::vector<int>>& edges) {
-        std::vector<std::vector<int>> graph(n);
+    std::string reorderSpaces(const std::string& text) {
+        int spaces = std::ranges::count(text, ' ');
+        std::string res;
+        res.reserve(text.length());
+        auto range = text | std::views::split(' '), words = range;
+        const int space = spaces / std::max(std::ranges::count_if(words, [](const auto& ch) -> bool { return !ch.empty(); }) - 1, 1l);
 
-        for (const std::vector<int>& edge : edges) {
-            graph[edge[0]].push_back(edge[1]);
-            graph[edge[1]].push_back(edge[0]);
+        for (const auto& word : range | std::views::filter([](const auto& ch) -> bool { return !ch.empty(); })) {
+            for (char c : word)
+                res.push_back(c);
+            res.append(std::min(space, spaces), ' ');
+            spaces -= space;
         }
-        int min = INT32_MAX;
-
-        for (int i = 0; i < n; i++) {
-            min = std::min(min, bfs(graph, i));
-        }
-        return min == INT32_MAX ? -1 : min;
+        return res;
     }
 };
 
@@ -116,7 +89,7 @@ int main() {
     Solution sol;
     const std::chrono::time_point<std::chrono::system_clock> start = std::chrono::high_resolution_clock::now();
 
-    sol.findShortestCycle(8, {{1, 3}, {3, 5}, {5, 7}, {7, 1}, {0, 2}, {2, 4}, {4, 0}});
+    sol.reorderSpaces("a b   c d");
 
     const std::chrono::duration<double> time = std::chrono::high_resolution_clock::now() - start;
     std::cout << "Total time taken: " << time.count();
