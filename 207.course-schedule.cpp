@@ -5,6 +5,8 @@
  */
 
 // @lc code=start
+#include <ranges>
+
 class Solution {
     enum State { UNVISITED, VISITING, VISITED };
 
@@ -28,12 +30,8 @@ public:
         for (const std::vector<int>& edge : prerequisites) {
             graph[edge[1]].push_back(edge[0]);
         }
-        for (int i = 0; i < numCourses; i++) {
-            if (state[i] == UNVISITED && !dfs(graph, state, i)) {
-                return false;
-            }
-        }
-        return true;
+        return !std::ranges::any_of(std::views::iota(0, numCourses),
+                                    [&](const int i) -> bool { return state[i] == UNVISITED && !dfs(graph, state, i); });
     }
 };
 // @lc code=end
