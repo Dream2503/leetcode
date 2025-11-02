@@ -7,23 +7,19 @@
 // @lc code=start
 class Solution {
 public:
-    void dfs(vector<vector<int>>& image, int sr, int sc, int color, int newColor) {
-        if (sr < 0 || sr >= image.size() || sc < 0 || sc >= image[0].size() || image[sr][sc] != color || image[sr][sc] == newColor) {
-            return;
+    void dfs(std::vector<std::vector<int>>& image, const int m, const int n, const int row, const int col, const int color, const int new_color) {
+        if (row >= 0 && row < m && col >= 0 && col < n && image[row][col] == color && image[row][col] != new_color) {
+            image[row][col] = new_color;
+            dfs(image, m, n, row + 1, col, color, new_color);
+            dfs(image, m, n, row - 1, col, color, new_color);
+            dfs(image, m, n, row, col + 1, color, new_color);
+            dfs(image, m, n, row, col - 1, color, new_color);
         }
-        image[sr][sc] = newColor;
-        dfs(image, sr + 1, sc, color, newColor);
-        dfs(image, sr - 1, sc, color, newColor);
-        dfs(image, sr, sc + 1, color, newColor);
-        dfs(image, sr, sc - 1, color, newColor);
     }
 
-    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
-        int color = image[sr][sc];
-        dfs(image, sr, sc, color, newColor);
+    std::vector<std::vector<int>>& floodFill(std::vector<std::vector<int>>& image, const int sr, const int sc, const int newColor) {
+        dfs(image, image.size(), image.front().size(), sr, sc, image[sr][sc], newColor);
         return image;
     }
 };
-
 // @lc code=end
-
