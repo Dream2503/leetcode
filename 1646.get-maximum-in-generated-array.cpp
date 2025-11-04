@@ -11,10 +11,10 @@ public:
         if (n == 0) {
             return 0;
         }
+        int res = 1;
         std::vector nums(n + 1, 0);
         nums[0] = 0;
         nums[1] = 1;
-        int res = 1;
 
         for (int i = 1; 2 * i <= n; i++) {
             nums[2 * i] = nums[i];
