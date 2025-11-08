@@ -1,0 +1,22 @@
+/*
+ * @lc app=leetcode id=1611 lang=cpp
+ *
+ * [1611] Minimum One Bit Operations to Make Integers Zero
+ */
+
+// @lc code=start
+class Solution {
+public:
+    int minimumOneBitOperations(const int n) {
+        if (n == 0) {
+            return 0;
+        }
+        int x = 1;
+
+        while (x * 2 <= n) {
+            x <<= 1;
+        }
+        return minimumOneBitOperations(n ^ (x | x >> 1)) + 1 + (x - 1);
+    }
+};
+// @lc code=end
