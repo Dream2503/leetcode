@@ -9,11 +9,11 @@ class MyStack {
     std::queue<int> stack;
 
 public:
-    MyStack() : stack() {}
+    MyStack() : {}
 
     void push(const int x) { stack.push(x); }
 
-    int pop() noexcept {
+    int pop() {
         const int size = stack.size();
 
         for (int i = 1; i < size; i++) {
@@ -25,9 +25,9 @@ public:
         return res;
     }
 
-    int top() const noexcept { return stack.back(); }
+    int top() { return stack.back(); }
 
-    bool empty() const noexcept { return stack.empty(); }
+    bool empty() { return stack.empty(); }
 };
 
 /**
