@@ -17,7 +17,7 @@
  * };
  */
 class Solution {
-    TreeNode* create_node(const std::vector<int>& nums, const int low, const int high) -> TreeNode* {
+    TreeNode* create_node(const std::vector<int>& nums, const int low, const int high) {
         if (low > high) {
             return nullptr;
         }
