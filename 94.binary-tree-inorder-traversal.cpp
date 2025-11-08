@@ -17,17 +17,18 @@
  * };
  */
 class Solution {
+    void in_order(const TreeNode* node, std::vector<int>& res) {
+        if (node) {
+            in_order(node->left, res);
+            res.push_back(node->val);
+            in_order(node->right, res);
+        }
+    }
+
 public:
     std::vector<int> inorderTraversal(const TreeNode* root) {
         std::vector<int> res;
-        std::function<void(const TreeNode*)> in_order = [&](const TreeNode* node) -> void {
-            if (node) {
-                in_order(node->left);
-                res.push_back(node->val);
-                in_order(node->right);
-            }
-        };
-        in_order(root);
+        in_order(root, res);
         return res;
     }
 };
