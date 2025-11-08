@@ -17,25 +17,24 @@
  * };
  */
 class Solution {
+    int check(const TreeNode* node) {
+        if (!node) {
+            return 0;
+        }
+        const int left = check(node->left);
+
+        if (left == -1) {
+            return -1;
+        }
+        const int right = check(node->right);
+
+        if (right == -1 || std::abs(left - right) > 1) {
+            return -1;
+        }
+        return std::max(left, right) + 1;
+    };
+
 public:
-    bool isBalanced(const TreeNode* root) {
-        std::function<int(const TreeNode*)> check = [&](const TreeNode* node) -> int {
-            if (!node) {
-                return 0;
-            }
-            const int left = check(node->left);
-
-            if (left == -1) {
-                return -1;
-            }
-            const int right = check(node->right);
-
-            if (right == -1 || std::abs(left - right) > 1) {
-                return -1;
-            }
-            return std::max(left, right) + 1;
-        };
-        return check(root) != -1;
-    }
+    bool isBalanced(const TreeNode* root) { return check(root) != -1; }
 };
 // @lc code=end
