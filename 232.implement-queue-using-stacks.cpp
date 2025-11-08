@@ -9,17 +9,17 @@ class MyQueue {
     std::stack<int> queue1, queue2;
 
 public:
-    MyQueue() : queue1(), queue2() {}
+    MyQueue() {}
 
     void push(const int x) { queue1.push(x); }
 
-    int pop() noexcept {
+    int pop() {
         const int res = peek();
         queue2.pop();
         return res;
     }
 
-    int peek() noexcept {
+    int peek() {
         if (queue2.empty()) {
             while (!queue1.empty()) {
                 queue2.push(queue1.top());
@@ -29,7 +29,7 @@ public:
         return queue2.top();
     }
 
-    bool empty() const noexcept { return queue1.empty() && queue2.empty(); }
+    bool empty() { return queue1.empty() && queue2.empty(); }
 };
 
 /**
