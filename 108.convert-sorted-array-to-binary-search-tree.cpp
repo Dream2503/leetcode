@@ -17,16 +17,15 @@
  * };
  */
 class Solution {
-public:
-    TreeNode* sortedArrayToBST(const vector<int>& nums) {
-        std::function<TreeNode*(int, int)> create_node = [&](const int low, const int high) -> TreeNode* {
-            if (low > high) {
-                return nullptr;
-            }
-            const int mid = (low + high) / 2;
-            return new TreeNode(nums[mid], create_node(low, mid - 1), create_node(mid + 1, high));
-        };
-        return create_node(0, nums.size() - 1);
+    TreeNode* create_node(const std::vector<int>& nums, const int low, const int high) -> TreeNode* {
+        if (low > high) {
+            return nullptr;
+        }
+        const int mid = (low + high) / 2;
+        return new TreeNode(nums[mid], create_node(nums, low, mid - 1), create_node(nums, mid + 1, high));
     }
+
+public:
+    TreeNode* sortedArrayToBST(const std::vector<int>& nums) { return create_node(nums, 0, nums.size() - 1); }
 };
 // @lc code=end
