@@ -35,8 +35,7 @@ class Solution {
 
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, const TreeNode* p, const TreeNode* q) {
-        const std::vector<TreeNode*> p_ancestors = search(root, p);
-        const std::vector<TreeNode*> q_ancestors = search(root, q);
+        const std::vector<TreeNode*> p_ancestors = search(root, p), q_ancestors = search(root, q);
         const int size = std::min(p_ancestors.size(), q_ancestors.size());
         int i = 0;
 
