@@ -9,7 +9,7 @@ class MyStack {
     std::queue<int> stack;
 
 public:
-    MyStack() : {}
+    MyStack() {}
 
     void push(const int x) { stack.push(x); }
 
