@@ -8,9 +8,9 @@
 class Solution {
 public:
     int countStudents(std::vector<int>& students, std::vector<int>& sandwiches) {
+        int stuck = 0;
         std::ranges::reverse(students);
         std::ranges::reverse(sandwiches);
-        int stuck = 0;
 
         while (!students.empty() && stuck < students.size()) {
             if (students.back() == sandwiches.back()) {
