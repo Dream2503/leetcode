@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-DIR="/mnt/d/achha/Dream/leetcode"
+DIR="/home/dream/github/leetcode"
 OUT="$DIR/all_in_one.hpp"
 
 {

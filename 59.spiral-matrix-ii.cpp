@@ -1,22 +1,20 @@
 /*
- * @lc app=leetcode id=54 lang=cpp
+ * @lc app=leetcode id=59 lang=cpp
  *
- * [54] Spiral Matrix
+ * [59] Spiral Matrix II
  */
 
 // @lc code=start
 class Solution {
 public:
-    std::vector<int> spiralOrder(const std::vector<std::vector<int>>& matrix) {
+    std::vector<std::vector<int>> generateMatrix(const int n) {
         enum class Direction { LEFT, UP, DOWN, RIGHT } direction = Direction::RIGHT;
-        const int m = matrix.size(), n = matrix[0].size();
-        int i = 0, j = 0;
-        std::array edge = {0, 1, m, n}; // {left, up, down, right}
-        std::vector<int> res;
-        res.reserve(m * n);
+        int cnt = 1, i = 0, j = 0;
+        std::array edge = {0, 1, n, n}; // {left, up, down, right}
+        std::vector res(n, std::vector(n, -1));
 
         while (true) {
-            res.push_back(matrix[i][j]);
+            res[i][j] = cnt++;
 
             switch (direction) {
             case Direction::RIGHT:
