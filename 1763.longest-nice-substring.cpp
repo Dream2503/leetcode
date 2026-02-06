@@ -23,7 +23,7 @@ public:
     std::string longestNiceSubstring(const std::string& s) {
         const int size = s.size();
     std:
-        string res;
+        std::string res;
 
         for (int i = 0; i < size; i++) {
             for (int j = i + 1; j <= size; j++) {
