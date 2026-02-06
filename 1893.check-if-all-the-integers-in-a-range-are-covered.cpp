@@ -8,7 +8,7 @@
 class Solution {
 public:
     bool isCovered(const std::vector<std::vector<int>>& ranges, const int left, const int right) {
-        std::vector distribution(51, false);
+        std::array<51, bool> distribution = {};
 
         for (const std::vector<int>& range : ranges) {
             for (int i = range[0]; i <= range[1]; i++) {

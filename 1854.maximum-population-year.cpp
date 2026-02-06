@@ -8,7 +8,7 @@
 class Solution {
 public:
     int maximumPopulation(const std::vector<std::vector<int>>& logs) {
-        std::vector<int> distribution(2050 - 1950 + 1);
+        std::array<2050 - 1950 + 1, int> distribution;
 
         for (const std::vector<int>& log : logs) {
             for (int i = log[0]; i < log[1]; i++) {
