@@ -9,9 +9,10 @@ class Solution {
     void combination(const std::vector<int>& candidates, const int idx, const int target, std::vector<int>& current,
                      std::vector<std::vector<int>>& res) {
         if (idx == candidates.size()) {
-            if (target == 0) {
-                res.push_back(current);
-            }
+            return;
+        }
+        if (target == 0) {
+            res.push_back(current);
             return;
         }
         if (target >= candidates[idx]) {
