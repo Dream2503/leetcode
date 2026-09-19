@@ -21,8 +21,7 @@ class Solution {
     }
 
 public:
-    int minReorder(int n, const std::vector<std::vector<int>>& connections) {
-        const int size = connections.size();
+    int minReorder(const int n, const std::vector<std::vector<int>>& connections) {
         int res = 0;
         std::vector<uint8_t> seen(n, false);
         std::vector<std::vector<int>> undirected_graph(n);
