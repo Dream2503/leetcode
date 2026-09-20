@@ -20,10 +20,9 @@ public:
         std::ranges::sort(prefix_gcd);
 
         for (int i = 0, j = size - 1; i < j; i++, j--) {
-            res += std::gcd(prefix_gcd[i], prefix_gcd[j]) ;
+            res += std::gcd(prefix_gcd[i], prefix_gcd[j]);
         }
         return res;
     }
 };
 // @lc code=end
-
