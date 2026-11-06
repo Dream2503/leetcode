@@ -26,7 +26,7 @@ public:
         std::vector current{root};
 
         while (!current.empty()) {
-            int max = 0;
+            int max = INT32_MIN;
             std::vector<TreeNode*> next;
 
             for (const TreeNode* node : current) {
