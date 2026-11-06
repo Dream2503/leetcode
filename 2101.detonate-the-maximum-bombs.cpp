@@ -8,7 +8,6 @@
 class Solution {
     int dfs(const std::vector<std::vector<int>>& graph, const int u, std::vector<uint8_t>& visited) {
         visited[u] = true;
-
         return std::ranges::fold_left(graph[u] | std::views::filter([&visited](const int v) -> bool { return !visited[v]; }) |
                                           std::views::transform([&](const int v) -> int { return dfs(graph, v, visited); }),
                                       1, std::plus());
