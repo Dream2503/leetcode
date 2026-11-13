@@ -9,34 +9,28 @@ class Solution {
 public:
     int64_t countNonDecreasingSubarrays(const std::vector<int>& nums, const int k) {
         const int size = nums.size();
-        int64_t res = 0, operations = 0;
-        std::priority_queue<std::pair<int, int>> heap;
-        std::vector<std::vector<int>> count(size);
-        std::vector position(size, size);
-        std::stack<int> stack;
+        std::deque<int> deque;
+        int64_t cost = 0, res = 0;
+        int j = size - 1;
 
-        for (int left = 0, right = 0; right < size; right++) {
-            while (!stack.empty() && nums[right] >= nums[stack.top()]) {
-                position[stack.top()] = right;
-                stack.pop();
+        for (int i = size - 1; i >= 0; i--) {
+            while (!deque.empty() && nums[deque.back()] < nums[i]) {
+                const int left = deque.back();
+                deque.pop_back();
+                const int right = deque.empty() ? j + 1 : deque.back();
+                cost += static_cast<int64_t>(right - left) * (nums[i] - nums[left]);
             }
-            if (!stack.empty()) {
-                count[stack.top()].push_back(right);
-            }
-            stack.push(right);
-            heap.emplace(nums[right], right);
-            operations += std::max(0, heap.top().first - nums[right]);
+            deque.push_back(i);
 
-            while (operations > k) {
-                for (const int i : count[left]) {
-                    operations -= static_cast<int64_t>(nums[left] - nums[i]) * (std::min(position[i], right + 1) - i);
+            while (cost > k) {
+                cost -= nums[deque.front()] - nums[j];
+
+                if (deque.front() == j) {
+                    deque.pop_front();
                 }
-                left++;
+                j--;
             }
-            while (!heap.empty() && heap.top().second < left) {
-                heap.pop();
-            }
-            res += right - left + 1;
+            res += j - i + 1;
         }
         return res;
     }
